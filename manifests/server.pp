@@ -54,13 +54,14 @@ class ossec::server (
 
   if $use_mysql {
     # Relies on mysql module specified in metadata.json
-    if $mariadb {
+    # Barry Pitman - 2016-09-27 - use of puppetlabs-mysql module conflicts with our own mysql module
+    #if $mariadb {
       # if mariadb is true, then force the usage of the mariadb-client package
-      class { 'mysql::client': package_name => 'mariadb-client' }
-    } else {
-      include mysql::client
-    }
-    Class['mysql::client'] ~> Service[$ossec::params::server_service]
+    #  class { 'mysql::client': package_name => 'mariadb-client' }
+    #} else {
+    #  include mysql::client
+    #}
+    #Class['mysql::client'] ~> Service[$ossec::params::server_service]
   }
 
   # install package
